@@ -1686,6 +1686,14 @@
 
             const PENDING_NOTE = 'Full case study pending — real screens are queued up once Figma access resets.';
 
+            const PROJECT_SOURCE_LINKS = {
+                designcafe: 'https://iam-rizwan.github.io/DesignCafe_CRM_Redesign/',
+                verzeo: 'https://www.figma.com/proto/O5AgUZWOttePFn56uvKYbJ/Verzeo?node-id=0-1&t=T6c8mPpNXPHhLjfh-1',
+                mrsong: 'https://www.figma.com/proto/pzSiHqCSOlhUD0jQORCxHQ/MR.SONG-CHATBOT-SONG-RECOMMENDER--Community-?node-id=0-1&t=siZjM3nqwTukG5Lu-1',
+                purplemerit: 'https://www.figma.com/proto/V3d1T1CSCcR3HUYz8FdhgC/PurpleMerit_Eventer?node-id=0-1&t=5yxCc4HmEiAyG2M6-1',
+                spectra: 'https://www.figma.com/proto/kPcxuvVCIC8QnNeVxSawGC/Spectra-Edu?node-id=0-1&t=0wMCtZIyk7iSNvbA-1'
+            };
+
             const PROJECT_DATA = {
                 designcafe: {
                     desc: "A branded CRM for an interiors company, rebuilt from a single tangled file into a clean, modular product.",
@@ -1740,8 +1748,11 @@
 
             let csState = 'gallery';
 
+            let currentProjectKey = '';
+
             function openDetail(card) {
                 const key = card.getAttribute('data-key') || '';
+                currentProjectKey = key;
                 const title = card.getAttribute('data-title') || '';
                 const fallbackDesc = card.getAttribute('data-desc') || '';
                 const img = card.getAttribute('data-img') || '';
@@ -1789,7 +1800,11 @@
 
             const sourceBtn = document.getElementById('csSourceBtn');
             if (sourceBtn) {
-                sourceBtn.addEventListener('click', (e) => e.preventDefault());
+                sourceBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const link = PROJECT_SOURCE_LINKS[currentProjectKey];
+                    if (link) window.open(link, '_blank', 'noopener');
+                });
             }
 
     
