@@ -522,7 +522,7 @@
         .cs-card {
             flex: 0 0 31%;
             height: 100%;
-            min-height: 0;
+            min-height: 340px;
             display: flex;
             flex-direction: column;
             background: rgba(255,255,255,.04);
@@ -543,9 +543,12 @@
         .cs-card-image {
             width: 100%;
             height: 46%;
+            min-height: 160px;
             flex-shrink: 0;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255,255,255,.04);
             transform: scale(1);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -1547,14 +1550,19 @@
         const follower = document.getElementById('customCursorFollower');
         const orb = document.getElementById('interactiveOrb');
 
-     
+        // The site's horizontal wheel-jacking + custom cursor are desktop-only
+        // interactions. On small screens / touch devices we fall back to a
+        // native vertical stack (see the mobile media query), so this flag
+        // disables the desktop-only JS behavior to match.
         const MOBILE_QUERY = '(max-width: 768px), (max-height: 500px) and (max-width: 1366px), (hover: none) and (pointer: coarse)';
         let isMobileMode = window.matchMedia(MOBILE_QUERY).matches;
         window.addEventListener('resize', () => {
             isMobileMode = window.matchMedia(MOBILE_QUERY).matches;
         });
 
-     
+        // Panels whose content may exceed the viewport height (Skills, Education)
+        // get native vertical scrolling instead of being swallowed by the
+        // global horizontal wheel-jacking below.
         const verticalScrollPanels = document.querySelectorAll('.skills-section, .education-section');
         verticalScrollPanels.forEach((panel) => {
             panel.addEventListener('wheel', (e) => {
@@ -1638,7 +1646,7 @@
 
         window.addEventListener('resize', updateProgress);
 
-      
+        // ===== Scroll-triggered fade-up reveals (Skills + Education) =====
         (function initRevealAnimations() {
             const skillCards = document.querySelectorAll('.skill-card');
             const eduItems = document.querySelectorAll('.edu-item');
@@ -1660,7 +1668,7 @@
             eduItems.forEach((item) => revealObserver.observe(item));
         })();
 
-        
+        // ===== Premium Project Showcase (Case Study mockup) =====
         (function initCaseStudyShowcase() {
             const stage = document.getElementById('csStage');
             const gallery = document.getElementById('csGallery');
