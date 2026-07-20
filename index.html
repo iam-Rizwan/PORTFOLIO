@@ -1783,11 +1783,7 @@
                 sourceBtn.addEventListener('click', (e) => e.preventDefault());
             }
 
-            // Wheel routing: horizontal scroll while browsing the gallery,
-            // native vertical scroll while a project detail is open.
-            // Listening in the CAPTURE phase and stopping propagation here
-            // guarantees the page's global horizontal-scroll listener on
-            // window never sees this event, regardless of listener order.
+    
             let csScrollTimer = null;
 
             stage.addEventListener('wheel', (e) => {
@@ -1798,17 +1794,14 @@
                     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
                     galleryTrack.scrollLeft += delta;
 
-                    // Briefly disable card hover while actively scrolling so
-                    // cards passing under a stationary cursor don't flicker
-                    // in and out of their hover/lift state.
+                
                     galleryTrack.classList.add('is-scrolling');
                     clearTimeout(csScrollTimer);
                     csScrollTimer = setTimeout(() => {
                         galleryTrack.classList.remove('is-scrolling');
                     }, 150);
                 }
-                // In 'detail' state, let the native overflow-y:auto scroll
-                // of .cs-detail-scroll handle the wheel event as-is.
+              
             }, { passive: false, capture: true });
         })();
     </script>
