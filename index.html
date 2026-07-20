@@ -1547,19 +1547,14 @@
         const follower = document.getElementById('customCursorFollower');
         const orb = document.getElementById('interactiveOrb');
 
-        // The site's horizontal wheel-jacking + custom cursor are desktop-only
-        // interactions. On small screens / touch devices we fall back to a
-        // native vertical stack (see the mobile media query), so this flag
-        // disables the desktop-only JS behavior to match.
+     
         const MOBILE_QUERY = '(max-width: 768px), (max-height: 500px) and (max-width: 1366px), (hover: none) and (pointer: coarse)';
         let isMobileMode = window.matchMedia(MOBILE_QUERY).matches;
         window.addEventListener('resize', () => {
             isMobileMode = window.matchMedia(MOBILE_QUERY).matches;
         });
 
-        // Panels whose content may exceed the viewport height (Skills, Education)
-        // get native vertical scrolling instead of being swallowed by the
-        // global horizontal wheel-jacking below.
+     
         const verticalScrollPanels = document.querySelectorAll('.skills-section, .education-section');
         verticalScrollPanels.forEach((panel) => {
             panel.addEventListener('wheel', (e) => {
@@ -1643,7 +1638,7 @@
 
         window.addEventListener('resize', updateProgress);
 
-        // ===== Scroll-triggered fade-up reveals (Skills + Education) =====
+      
         (function initRevealAnimations() {
             const skillCards = document.querySelectorAll('.skill-card');
             const eduItems = document.querySelectorAll('.edu-item');
@@ -1665,7 +1660,7 @@
             eduItems.forEach((item) => revealObserver.observe(item));
         })();
 
-        // ===== Premium Project Showcase (Case Study mockup) =====
+        
         (function initCaseStudyShowcase() {
             const stage = document.getElementById('csStage');
             const gallery = document.getElementById('csGallery');
